@@ -1,38 +1,39 @@
 // src/index.ts
+import { EstoqueVeiculos } from './EstoqueVeiculos';
 import { GerenciadorVeiculos } from './GerenciadorVeiculos';
 import { Carro } from './carro';
 import { Moto } from './moto';
 
-// Criar o gerenciador de carros
 const gerenciadorCarros = new GerenciadorVeiculos<Carro>();
-
-// Adicionar carros da Audi, incluindo o Audi R8
-gerenciadorCarros.adicionar(new Carro('Audi', 'A3', 'prata', 2020));
-gerenciadorCarros.adicionar(new Carro('Audi', 'Q7', 'preto', 2018));
-gerenciadorCarros.adicionar(new Carro('Audi', 'R8', 'vermelho', 2023)); // Audi R8
-
-// Listar carros
-console.log('Carros Audi cadastrados:');
-gerenciadorCarros.listarVeiculos().forEach(carro => {
-    console.log(`${carro.marca} ${carro.modelo} - Cor: ${carro.cor} - Ano: ${carro.ano}`);
-});
-
-// Criar o gerenciador de motos
 const gerenciadorMotos = new GerenciadorVeiculos<Moto>();
 
-// Adicionar motos
+const estoqueVeiculos = new EstoqueVeiculos<Carro | Moto>();
+
+gerenciadorCarros.adicionar(new Carro('Audi', 'A3', 'prata', 2020));
+gerenciadorCarros.adicionar(new Carro('Audi', 'Q7', 'preto', 2018));
+gerenciadorCarros.adicionar(new Carro('Audi', 'R8', 'vermelho', 2023));
+
 gerenciadorMotos.adicionar(new Moto('Honda CG', 160, 'vermelha'));
 gerenciadorMotos.adicionar(new Moto('Yamaha XTZ', 250, 'preta'));
 
-// Listar motos
-console.log('Motos cadastradas:');
-gerenciadorMotos.listarVeiculos().forEach(moto => {
-    console.log(`${moto.modelo} - Cilindrada: ${moto.cilindrada}cc - Cor: ${moto.cor}`);
-});
+console.log('Carros gerenciados:');
+console.log(gerenciadorCarros.listarVeiculos());
 
-// Remover um carro e listar novamente
-gerenciadorCarros.remover(new Carro('Audi', 'A3', 'prata', 2020));  // Remover o Audi A3
-console.log('Carros após remoção:');
-gerenciadorCarros.listarVeiculos().forEach(carro => {
-    console.log(`${carro.marca} ${carro.modelo} - Cor: ${carro.cor} - Ano: ${carro.ano}`);
-});
+console.log('Motos gerenciadas:');
+console.log(gerenciadorMotos.listarVeiculos());
+
+estoqueVeiculos.adicionarEstoque('Audi R8', 5);
+estoqueVeiculos.adicionarEstoque('Honda CG', 10);
+estoqueVeiculos.adicionarEstoque('Yamaha XTZ', 7);
+
+console.log(`Estoque de Audi R8: ${estoqueVeiculos.consultarEstoque('Audi R8')}`);
+console.log(`Estoque de Honda CG: ${estoqueVeiculos.consultarEstoque('Honda CG')}`);
+console.log(`Estoque de Yamaha XTZ: ${estoqueVeiculos.consultarEstoque('Yamaha XTZ')}`);
+
+estoqueVeiculos.removerEstoque('Audi R8', 2);
+estoqueVeiculos.removerEstoque('Yamaha XTZ', 3);
+
+console.log(`Estoque de Audi R8 após remoção: ${estoqueVeiculos.consultarEstoque('Audi R8')}`);
+console.log(`Estoque de Yamaha XTZ após remoção: ${estoqueVeiculos.consultarEstoque('Yamaha XTZ')}`);
+
+estoqueVeiculos.removerEstoque('Honda CG', 15);
