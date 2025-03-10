@@ -1,6 +1,5 @@
-// src/utils/FiltroVeiculos.ts
-import { Carro } from '../classes/carro'; // Importando a classe Carro
-import { Moto } from '../classes/moto'; // Importando a classe Moto
+import { Carro } from '../classes/carro';
+import { Moto } from '../classes/moto';
 
 export function filtrarPorAno(veiculos: (Carro | Moto)[], ano: number): (Carro | Moto)[] {
     return veiculos.filter(veiculo => veiculo.ano === ano);

@@ -1,5 +1,5 @@
-// src/index.ts
 import { filtrarPorAno, filtrarPorMarca, filtrarPorModelo } from '../utils/FiltroVeiculos';
+import { gerarRelatorio } from '../utils/RelatorioVeiculos';
 import { EstoqueVeiculos } from './EstoqueVeiculos';
 import { GerenciadorVeiculos } from './GerenciadorVeiculos';
 import { Carro } from './carro';
@@ -47,3 +47,7 @@ console.log('Veículos da marca Audi:', audiVeiculos);
 
 const hondaCG = filtrarPorModelo([...gerenciadorCarros.listarVeiculos(), ...gerenciadorMotos.listarVeiculos()], 'Honda CG');
 console.log('Veículos modelo Honda CG:', hondaCG);
+
+const todosVeiculos = [...gerenciadorCarros.listarVeiculos(), ...gerenciadorMotos.listarVeiculos()];
+const relatorio = gerarRelatorio(todosVeiculos);
+console.log('\n' + relatorio);
